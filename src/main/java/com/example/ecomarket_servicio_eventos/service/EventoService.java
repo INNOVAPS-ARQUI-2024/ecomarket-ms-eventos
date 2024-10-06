@@ -1,6 +1,5 @@
 package com.example.ecomarket_servicio_eventos.service;
 
-
 import java.util.Date;
 import java.util.List;
 
@@ -21,15 +20,28 @@ public class EventoService {
         return eventoRepository.findAll();
     }
 
-    // Obtener un evento por su ID
+    // Obtener un evento por ID
     public Evento obtenerEventoPorId(String id) {
         return eventoRepository.findById(id).orElse(null);
+    }
+
+    // Registrar usuario en un evento
+    public boolean registrarUsuarioEnEvento(String IdEvento, String correo, String token) {
+        // Lógica para verificar el token y registrar al usuario
+        // Retornar true si el registro fue exitoso o false si ya está registrado
+        return true; // Placeholder
     }
 
     // Guardar un nuevo evento
     public Evento guardarEvento(Evento evento) {
         evento.setFechaHora(new Date()); // Asigna la fecha de creación
         return eventoRepository.save(evento);
+    }
+
+    // Promocionar un evento
+    public boolean promocionarEvento(String IdEvento, Evento detallesPromocion, String correo, String token) {
+        // Lógica para promocionar el evento y verificar permisos
+        return true; // Placeholder
     }
 
     // Actualizar un evento existente
@@ -42,14 +54,13 @@ public class EventoService {
             evento.setFechaHora(detallesEvento.getFechaHora());
             evento.setRangoPrecios(detallesEvento.getRangoPrecios());
             evento.setFechaHora(new Date());
-            evento.setUserId(detallesEvento.getUserId());
             return eventoRepository.save(evento);
         }
         return null;
     }
 
-    // Eliminar un evento por su ID
-    public boolean eliminarEvento(String id) {
+    // Eliminar un evento
+    public boolean eliminarEvento(String id, String correo, String token) {
         if (eventoRepository.existsById(id)) {
             eventoRepository.deleteById(id);
             return true;
@@ -57,4 +68,3 @@ public class EventoService {
         return false;
     }
 }
-
