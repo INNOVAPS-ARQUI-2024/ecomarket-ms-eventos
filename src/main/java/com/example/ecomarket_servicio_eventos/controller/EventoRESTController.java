@@ -18,29 +18,29 @@ import com.example.ecomarket_servicio_eventos.entity.Evento;
 import com.example.ecomarket_servicio_eventos.service.EventoService;
 
 @RestController
-@RequestMapping("/eventos")
+@RequestMapping("/ecomarket-eventos")
 public class EventoRESTController {
 
     @Autowired
     private EventoService eventoService;
 
     // Obtener todos los eventos
-    @GetMapping
+    @GetMapping("/eventos")
     public ResponseEntity<List<Evento>> obtenerEventos() {
         List<Evento> eventos = eventoService.obtenerEventos();
         return eventos.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(eventos);
     }
 
     // Obtener un evento por ID
-    @GetMapping("/{id}")
+    @GetMapping("/eventos/{id}")
     public ResponseEntity<Evento> obtenerEventoPorId(@PathVariable("id") String id) {
         Evento evento = eventoService.obtenerEventoPorId(id);
         return evento != null ? ResponseEntity.ok(evento) : ResponseEntity.status(404).body(null);
     }
 
     // Registrar a un usuario en un evento
-    @PostMapping("/registro/{idEvento}")
-    public ResponseEntity<Void> registrarseEnEvento(@PathVariable("idEvento") String idEvento, @RequestHeader String correo,
+    @PostMapping("/registro/{id}")
+    public ResponseEntity<Void> registrarseEnEvento(@PathVariable("id") String idEvento, @RequestHeader String correo,
             @RequestHeader String token) {
         boolean registrado = eventoService.registrarUsuarioEnEvento(idEvento, correo, token);
         return registrado ? ResponseEntity.status(201).build() : ResponseEntity.status(409).build(); // 409 si ya
@@ -48,7 +48,7 @@ public class EventoRESTController {
     }
 
     // Publicar un nuevo evento
-    @PostMapping
+    @PostMapping("/eventos")
     public ResponseEntity<Evento> crearEvento(@RequestBody Evento evento) {
         if (evento == null || evento.getNombre() == null) {
             return ResponseEntity.status(400).body(null); // 400 Bad Request
@@ -63,17 +63,19 @@ public class EventoRESTController {
             @RequestHeader String correo, @RequestHeader String token) {
         boolean promocionado = eventoService.promocionarEvento(idEvento, detallesPromocion, correo, token);
         return promocionado ? ResponseEntity.ok().build() : ResponseEntity.status(403).build(); // 403 Forbidden
+
+        //Los parametros en un end point no se colocan con camelCase sino con snake_case ->(id_evento)
     }
 
     // Actualizar un evento existente
-    @PutMapping("/{id}")
+    @PutMapping("/eventos/{id}")
     public ResponseEntity<Evento> actualizarEvento(@PathVariable("id") String id, @RequestBody Evento detallesEvento) {
         Evento eventoActualizado = eventoService.actualizarEvento(id, detallesEvento);
         return eventoActualizado != null ? ResponseEntity.ok(eventoActualizado) : ResponseEntity.status(404).body(null);
     }
 
     // Eliminar un evento
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/eventos/{id}")
     public ResponseEntity<Void> eliminarEvento(@PathVariable("id") String id, @RequestHeader String correo,
             @RequestHeader String token) {
         boolean fueEliminado = eventoService.eliminarEvento(id, correo, token);

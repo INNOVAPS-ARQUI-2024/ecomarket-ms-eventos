@@ -39,7 +39,7 @@ public class EventoService {
     }
 
     // Promocionar un evento
-    public boolean promocionarEvento(String IdEvento, Evento detallesPromocion, String correo, String token) {
+    public boolean promocionarEvento(String IdEvento, Evento detalleEvento, String correo, String token) {
         // Lógica para promocionar el evento y verificar permisos
         return true; // Placeholder
     }
