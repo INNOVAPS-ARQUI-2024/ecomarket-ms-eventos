@@ -18,28 +18,28 @@ import com.example.ecomarket_servicio_eventos.entity.Evento;
 import com.example.ecomarket_servicio_eventos.service.EventoService;
 
 @RestController
-@RequestMapping("/ecomarket-eventos")
+@RequestMapping("/eventos")
 public class EventoRESTController {
 
     @Autowired
     private EventoService eventoService;
 
     // Obtener todos los eventos
-    @GetMapping("/eventos")
+    @GetMapping
     public ResponseEntity<List<Evento>> obtenerEventos() {
         List<Evento> eventos = eventoService.obtenerEventos();
         return eventos.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(eventos);
     }
 
     // Obtener un evento por ID
-    @GetMapping("/eventos/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Evento> obtenerEventoPorId(@PathVariable("id") String id) {
         Evento evento = eventoService.obtenerEventoPorId(id);
         return evento != null ? ResponseEntity.ok(evento) : ResponseEntity.status(404).body(null);
     }
 
     // Registrar a un usuario en un evento
-    @PostMapping("/registro/{id}")
+    @PostMapping("/registro/{idEvento}")
     public ResponseEntity<Void> registrarseEnEvento(@PathVariable("id") String idEvento, @RequestHeader String correo,
             @RequestHeader String token) {
         boolean registrado = eventoService.registrarUsuarioEnEvento(idEvento, correo, token);
@@ -48,7 +48,7 @@ public class EventoRESTController {
     }
 
     // Publicar un nuevo evento
-    @PostMapping("/eventos")
+    @PostMapping
     public ResponseEntity<Evento> crearEvento(@RequestBody Evento evento) {
         if (evento == null || evento.getNombre() == null) {
             return ResponseEntity.status(400).body(null); // 400 Bad Request
@@ -68,14 +68,14 @@ public class EventoRESTController {
     }
 
     // Actualizar un evento existente
-    @PutMapping("/eventos/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Evento> actualizarEvento(@PathVariable("id") String id, @RequestBody Evento detallesEvento) {
         Evento eventoActualizado = eventoService.actualizarEvento(id, detallesEvento);
         return eventoActualizado != null ? ResponseEntity.ok(eventoActualizado) : ResponseEntity.status(404).body(null);
     }
 
     // Eliminar un evento
-    @DeleteMapping("/eventos/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarEvento(@PathVariable("id") String id, @RequestHeader String correo,
             @RequestHeader String token) {
         boolean fueEliminado = eventoService.eliminarEvento(id, correo, token);
