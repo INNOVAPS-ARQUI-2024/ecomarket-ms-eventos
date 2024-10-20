@@ -67,4 +67,9 @@ public class EventoService {
         }
         return false;
     }
+    
+    // Metodo para obtener eventos por vendedor
+    public List<Evento> obtenerEventosPorUsuario(String sellerId) {
+        return eventoRepository.findBySellerId(sellerId);
+    }
 }

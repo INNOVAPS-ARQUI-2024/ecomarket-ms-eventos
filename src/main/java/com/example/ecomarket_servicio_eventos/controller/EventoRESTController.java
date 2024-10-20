@@ -81,4 +81,11 @@ public class EventoRESTController {
         boolean fueEliminado = eventoService.eliminarEvento(id, correo, token);
         return fueEliminado ? ResponseEntity.ok().build() : ResponseEntity.status(404).build();
     }
+
+// Encontrar eventos por id del usuario
+    @GetMapping("/usuario/{sellerId}")
+    public ResponseEntity<List<Evento>> obtenerEventoPorUsuario(@PathVariable("sellerId") String sellerId) {
+        List<Evento> eventos = eventoService.obtenerEventosPorUsuario(sellerId);
+        return ResponseEntity.ok(eventos);
+    }
 }
