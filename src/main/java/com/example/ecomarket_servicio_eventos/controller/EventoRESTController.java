@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
 
 import com.example.ecomarket_servicio_eventos.entity.Evento;
 import com.example.ecomarket_servicio_eventos.service.EventoService;
@@ -88,4 +89,11 @@ public class EventoRESTController {
         List<Evento> eventos = eventoService.obtenerEventosPorUsuario(sellerId);
         return ResponseEntity.ok(eventos);
     }
+
+    //registrar usuario en evento
+    @PostMapping("/registrar/{eventoId}/{userId}")
+    public ResponseEntity<Evento> registrarUsuario(@PathVariable String eventoId, @PathVariable String userId) {
+        Evento evento = eventoService.registrarUsuario(eventoId, userId);
+        return new ResponseEntity<>(evento, HttpStatus.OK);
+    }   
 }

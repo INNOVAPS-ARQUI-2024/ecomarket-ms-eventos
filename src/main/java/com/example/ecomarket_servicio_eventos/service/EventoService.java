@@ -72,4 +72,11 @@ public class EventoService {
     public List<Evento> obtenerEventosPorUsuario(String sellerId) {
         return eventoRepository.findBySellerId(sellerId);
     }
+
+    //registrar usuario en evento
+    public Evento registrarUsuario(String eventoId, String userId) {
+        Evento evento = eventoRepository.findById(eventoId).orElseThrow(() -> new RuntimeException("Evento no encontrado"));
+        evento.getUserIds().add(userId);
+        return eventoRepository.save(evento);
+    }
 }
