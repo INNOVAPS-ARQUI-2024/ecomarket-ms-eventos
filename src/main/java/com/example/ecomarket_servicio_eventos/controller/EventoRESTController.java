@@ -19,7 +19,7 @@ import com.example.ecomarket_servicio_eventos.entity.Evento;
 import com.example.ecomarket_servicio_eventos.service.EventoService;
 
 @RestController
-@RequestMapping("/eventos")
+@RequestMapping("/api/eventos")
 public class EventoRESTController {
 
     @Autowired
