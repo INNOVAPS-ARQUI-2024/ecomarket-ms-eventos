@@ -4,6 +4,12 @@ spring:
   data:
     mongodb:
       uri: mongodb+srv://jdmolinae5:f59G7hBRJkZ9ltrg@cluster1.cxnru.mongodb.net/ecomarket?retryWrites=true&w=majority
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8082/api/usuarios/ingreso  # El mismo endpoint que configuraste en el API Gateway
+
 
 server:
   port: 8084

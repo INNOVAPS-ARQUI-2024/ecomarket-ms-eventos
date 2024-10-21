@@ -38,6 +38,9 @@ dependencies {
 	testImplementation 'org.testcontainers:junit-jupiter'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:4.17.0'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'  // Para manejar JWT
+
 }
 ext {
   set('springCloudVersion', "2023.0.3")
