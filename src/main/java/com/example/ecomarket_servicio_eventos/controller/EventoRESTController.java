@@ -81,10 +81,9 @@ public class EventoRESTController {
 
     // Eliminar un evento
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarEvento(@PathVariable("id") String id, @RequestHeader String correo,
-            @RequestHeader String token) {
-        boolean fueEliminado = eventoService.eliminarEvento(id, correo, token);
-        return fueEliminado ? ResponseEntity.ok().build() : ResponseEntity.status(404).build();
+    public ResponseEntity<Void> eliminarEvento(@PathVariable("id") String id) {
+        boolean fueEliminado = eventoService.eliminarEvento(id);
+        return fueEliminado ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 
 // Encontrar eventos por id del usuario

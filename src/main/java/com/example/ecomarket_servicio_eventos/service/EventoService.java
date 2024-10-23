@@ -55,7 +55,7 @@ public class EventoService {
     }
 
     // Eliminar un evento
-    public boolean eliminarEvento(String id, String correo, String token) {
+    public boolean eliminarEvento(String id) {
         if (eventoRepository.existsById(id)) {
             eventoRepository.deleteById(id);
             return true;
