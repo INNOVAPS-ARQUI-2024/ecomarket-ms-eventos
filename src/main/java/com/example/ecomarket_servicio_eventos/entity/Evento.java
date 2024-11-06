@@ -20,5 +20,6 @@ public class Evento {
     private String descripcion;
     private List<Integer> rangoPrecios;
     private Date fechaHora;
-    private String userId;
+    private String sellerId;
+    private List<String> userIds;
 }

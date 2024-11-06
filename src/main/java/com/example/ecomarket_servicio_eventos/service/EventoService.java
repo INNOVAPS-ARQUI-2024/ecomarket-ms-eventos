@@ -14,6 +14,7 @@ public class EventoService {
 
     @Autowired
     private EventoRepository eventoRepository;
+    
 
     // Obtener todos los eventos
     public List<Evento> obtenerEventos() {
@@ -25,12 +26,6 @@ public class EventoService {
         return eventoRepository.findById(id).orElse(null);
     }
 
-    // Registrar usuario en un evento
-    public boolean registrarUsuarioEnEvento(String IdEvento, String correo, String token) {
-        // Lógica para verificar el token y registrar al usuario
-        // Retornar true si el registro fue exitoso o false si ya está registrado
-        return true; // Placeholder
-    }
 
     // Guardar un nuevo evento
     public Evento guardarEvento(Evento evento) {
@@ -60,11 +55,50 @@ public class EventoService {
     }
 
     // Eliminar un evento
-    public boolean eliminarEvento(String id, String correo, String token) {
+    public boolean eliminarEvento(String id) {
         if (eventoRepository.existsById(id)) {
             eventoRepository.deleteById(id);
             return true;
         }
         return false;
     }
+    
+    // Metodo para obtener eventos por vendedor
+    public List<Evento> obtenerEventosPorVendedor(String sellerId) {
+        return eventoRepository.findBySellerId(sellerId);
+    }
+
+    public boolean registrarUsuarioEnEvento(String idEvento, String userId) {
+        // Busca el evento por ID
+        Evento evento = eventoRepository.findById(idEvento).orElseThrow(() -> new RuntimeException("Evento no encontrado"));
+
+        // Verifica si el usuario ya está registrado en el evento
+        if (evento.getUserIds().contains(userId)) {
+            return false; // Usuario ya está registrado
+        }
+
+        // Registra al usuario en el evento
+        evento.getUserIds().add(userId);
+        eventoRepository.save(evento);
+
+        // Simulación de confirmación en pantalla
+        System.out.println("Confirmación de registro enviada al usuario ID: " + userId);
+
+        return true; // Registro exitoso
+    }
+
+    //obtener los eventos donde el cliente se ha registrados
+    public List<Evento> obtenerEventosPorUsuario(String userId) {
+        return eventoRepository.findAllByUserIdsContains(userId);
+    }
+
+    //obtener los eventos por fecha
+    public List<Evento> obtenerEventosPorFechaHora(Date fechaHora) {
+        return eventoRepository.findByFechaHora(fechaHora);
+    }
+
+    public List<Evento> obtenerEventosPorFecha(Date startOfDay, Date endOfDay) {
+        return eventoRepository.findByFechaHoraBetween(startOfDay, endOfDay);
+    }
+    
 }

@@ -29,7 +29,7 @@ public class TestUtils {
                 .descripcion("Un concierto espectacular con las mejores bandas de rock")
                 .rangoPrecios(Arrays.asList(50, 100, 150))
                 .fechaHora(new Date())
-                .userId("user123")
+                .sellerId("user123")
                 .build();
 
 
@@ -43,7 +43,7 @@ public class TestUtils {
                 .descripcion("Un concierto espectacular con las mejores bandas de rock")
                 .rangoPrecios(Arrays.asList(50, 100, 150))
                 .fechaHora(new Date())
-                .userId("user123")
+                .sellerId("user123")
                 .build();
 
         Evento evento2 = Evento.builder()
@@ -53,7 +53,7 @@ public class TestUtils {
                 .descripcion("Un concierto espectacular con las mejores bandas de rock")
                 .rangoPrecios(Arrays.asList(50, 100, 150))
                 .fechaHora(new Date())
-                .userId("user123")
+                .sellerId("user123")
                 .build();
         return Lists.newArrayList(evento1, evento2);
 
@@ -68,7 +68,7 @@ public class TestUtils {
                 .descripcion("Un concierto espectacular con las mejores bandas de rock")
                 .rangoPrecios(Arrays.asList(50, 100, 150))
                 .fechaHora(new Date())
-                .userId("user123")
+                .sellerId("user123")
                 .build();
     }
 
@@ -80,7 +80,7 @@ public class TestUtils {
                 .descripcion("Promoción para el evento de rock")
                 .rangoPrecios(Arrays.asList(30, 70, 120))
                 .fechaHora(new Date())
-                .userId("user123")
+                .sellerId("user123")
                 .build();
     }
 
